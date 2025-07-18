@@ -13,14 +13,23 @@
             <p><strong>Stock:</strong> {{ product.stock }}</p>
 
             <!-- Add to Cart Button -->
-            <form method="POST" action="{% url 'add_to_cart' product.id %}">
+             {% if user.is_authenticated %}
+              <form method="POST" action="{% url 'add_to_cart' product.id %}">
                 {% csrf_token %}
                 <button type="submit" class="product-btn add-cart-btn">Add to Cart</button>
-            </form>
-
-            <div class="product-buttons">
+              </form>
+              <div class="product-buttons">
                 <a href="{% url 'payment' %}" class="product-btn">Make Payment</a>
-            </div>
+              </div>
+             {% else %}
+              <form>
+                {% csrf_token %}
+                <button type="submit" class="product-btn add-cart-btn"><a style="color: black; text-decoration: none;" href="{% url 'login' %}">Add to Cart</a></button>
+              </form>
+              <div class="product-buttons">
+                <a href="{% url 'login' %}" class="product-btn">Make Payment</a>
+              </div>
+             {% endif %}
         </div>
     </div>
 </div>

@@ -42,9 +42,6 @@
 <body>
     <div class="box">
         <h2>Login</h2>
-        {% for message in messages %}
-            <div class="message">{{ message }}</div>
-        {% endfor %}
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
