@@ -62,7 +62,7 @@ def logout_view(request):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-@login_required
+
 def sell(request):
     return render(request, 'payment/sell.html')
 
