@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --accent: #58a6ff;
+    --bg-dark: #0d1117;
+    --card-bg: #161b22;
+    --text-main: #c9d1d9;
+    --danger: #f85149;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .shipment-card {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 25px 30px;
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.6s ease;
+  }
+
+  .shipment-card h2 {
+    color: #f0f6fc;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(88, 166, 255, 0.3);
+  }
+
+  .shipment-card p {
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .shipment-card strong {
+    color: var(--accent);
+  }
+
+  .error-message {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 20px;
+    background: var(--card-bg);
+    border: 1px solid #8b949e;
+    border-radius: 10px;
+    color: var(--danger);
+    text-align: center;
+    font-size: 16px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .shipment-card {
+      margin: 50px 15px;
+      padding: 20px;
+    }
+
+    .shipment-card h2 {
+      font-size: 20px;
+    }
+
+    .error-message {
+      margin: 50px 15px;
+    }
+  }
+</style>
+{% endblock %}
+
+  {% if shipment %}
+    <div class="shipment-card">
+      <h2>Shipment Details</h2>
+      <p><strong>Tracking ID:</strong> {{ shipment.tracking_id }}</p>
+      <p><strong>Full Name:</strong> {{ shipment.full_name }}</p>
+      <p><strong>Email:</strong> {{ shipment.email }}</p>
+      <p><strong>Service:</strong> {{ shipment.service }}</p>
+      <p><strong>Commodity:</strong> {{ shipment.commodity }}</p>
+      <p><strong>Destination Country:</strong> {{ shipment.destination_country }}</p>
+      <p><strong>Destination State:</strong> {{ shipment.destination_country_state }}</p>
+      <p><strong>Destination Town:</strong> {{ shipment.destination_country_town }}</p>
+      <p><strong>Location Now:</strong> {{ shipment.current_location }}</p>
+      <p><strong>Note:</strong> {{ shipment.note|default:"—" }}</p>
+      <p><strong>Status:</strong> {{ shipment.status }}</p>
+      <p><strong>Created At:</strong> {{ shipment.created_at|date:"F d, Y H:i" }}</p>
+    </div>
+  {% elif error %}
+    <div class="error-message">
+      {{ error }}
+    </div>
+  {% endif %}
+
+{% endblock %}

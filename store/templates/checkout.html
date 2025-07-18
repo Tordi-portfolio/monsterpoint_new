@@ -1,0 +1,20 @@
+<!-- templates/checkout.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <h2 style="text-align:center;">Checkout</h2>
+  <div style="max-width: 600px; margin: auto; background: #111; padding: 20px; color: #fff;">
+    <ul>
+      {% for item in cart_items %}
+        <li>{{ item.product.name }} x {{ item.quantity }} = ${{ item.subtotal }}</li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <p><strong>Total: ${{ total }}</strong></p>
+    
+    <!-- ✅ Make sure you have a form that POSTs -->
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" style="padding: 10px 20px;">Place Order</button>
+    </form>
+  </div>
+{% endblock %}

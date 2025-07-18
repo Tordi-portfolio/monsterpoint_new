@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  :root {
+    --accent-color: #ff3c00;
+    --bg-glass: rgba(255, 255, 255, 0.05);
+    --text-light: #fff;
+    --text-muted: #ccc;
+    --input-bg: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .neo-form-ship {
+    max-width: 600px;
+    margin: 50px auto;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(255, 60, 0, 0.25);
+    color: var(--text-light);
+  }
+
+  .neo-form-ship h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    text-shadow: 0 0 5px rgba(255, 60, 0, 0.5);
+  }
+
+  .neo-form-ship label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .neo-form-ship input,
+  .neo-form-ship select,
+  .neo-form-ship textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--input-bg);
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+    color: var(--text-light);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+  }
+
+  .neo-form-ship select option {
+    background: #222;
+    color: #fff;
+  }
+
+  .neo-form-ship input::placeholder,
+  .neo-form-ship textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  .neo-form-ship .btn-submit {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
+  }
+
+  .neo-form-ship .btn-submit:hover {
+    background: #cc2e00;
+    box-shadow: 0 6px 18px rgba(255, 60, 0, 0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .neo-form-ship {
+      padding: 1.8rem;
+      margin: 30px 20px;
+    }
+
+    .neo-form-ship h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<div class="neo-form-ship">
+  <h2>Create Shipment</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn-submit">Submit Shipment</button>
+  </form>
+</div>
+{% endblock %}

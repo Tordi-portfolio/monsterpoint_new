@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+    color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .link-container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 25px rgba(255, 106, 0, 0.2);
+    animation: fadeIn 0.7s ease;
+  }
+
+  .link-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #ff6a00;
+  }
+
+  .link-btn {
+    display: block;
+    text-align: center;
+    background: #ff6a00;
+    color: #fff;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 5px 15px rgba(255, 106, 0, 0.3);
+  }
+
+  .link-btn:hover {
+    background: #e55d00;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(255, 106, 0, 0.4);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="link-container">
+  <h2>Market place</h2>
+
+  {% if user.is_authenticated %}
+  <a href="{% url 'product_list' %}" class="link-btn">🏠 Buy Your Drugs</a>
+
+  {% else %}
+  <a href="{% url 'login' %}" class="link-btn">🏠 Buy Standard Fan Cards</a>
+  <a href="{% url 'login' %}" class="link-btn">🏠 My Standard Fan Cards</a>
+  <a href="{% url 'login' %}" class="link-btn">🏠 Buy Premium Fan Card</a>
+  <a href="{% url 'login' %}" class="link-btn">🏠 My Premium Fan Cards</a>
+  <a href="{% url 'login' %}" class="link-btn">🏠 Buy Others Products</a>
+  {% endif %}
+
+</div>
+{% endblock %}

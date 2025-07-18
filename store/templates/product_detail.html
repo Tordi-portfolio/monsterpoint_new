@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="product-detail-container">
+    <div class="product-detail-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-detail-image" />
+        <div class="product-detail-info">
+            <h2>{{ product.name }}</h2>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p class="product-price">${{ product.price }}</p>
+            <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+            <!-- Add to Cart Button -->
+            <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="product-btn add-cart-btn">Add to Cart</button>
+            </form>
+
+            <div class="product-buttons">
+                <a href="{% url 'payment' %}" class="product-btn">Make Payment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  .product-detail-container {
+    padding: 3rem;
+    background: #0c0c0c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .product-detail-card {
+    display: flex;
+    flex-wrap: wrap;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+    max-width: 900px;
+  }
+
+  .product-detail-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: cover;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .product-detail-info {
+    flex: 1;
+    padding: 2rem;
+  }
+
+  .product-detail-info h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .product-price {
+    color: #ff4d4d;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+
+  .product-buttons {
+    margin-top: 2rem;
+  }
+
+  .product-btn,
+  .add-cart-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+
+  .product-btn:hover,
+  .add-cart-btn:hover {
+    background: #ffaa00;
+  }
+
+  .product-btn.secondary {
+    background: #1e90ff;
+    color: #fff;
+  }
+
+  .product-btn.secondary:hover {
+    background: #0077cc;
+  }
+</style>
+{% endblock %}

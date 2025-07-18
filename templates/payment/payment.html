@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+        color: #eee;
+    }
+
+    .payment-container {
+        max-width: 550px;
+        margin: 60px auto;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0, 183, 255, 0.07);
+        font-family: 'Poppins', sans-serif;
+        position: relative;
+        animation: fadeIn 0.8s ease;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        backdrop-filter: blur(6px);
+    }
+
+    .payment-container h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #00bfff;
+    }
+
+    .payment-detail {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .payment-detail:hover {
+        box-shadow: 0 0 12px rgba(0, 191, 255, 0.15);
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #ccc;
+        flex: 1;
+    }
+
+    .detail-value {
+        flex: 1;
+        text-align: right;
+        margin-right: 10px;
+        color: #ddd;
+        word-break: break-word;
+    }
+
+    .copy-btn {
+        background: #00bfff;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 0.7rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .copy-btn:hover {
+        background: #009fd4;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+    }
+
+    .copy-btn i {
+        font-size: 1.1rem;
+    }
+
+    .copy-btn::after {
+        content: 'Copied!';
+        position: absolute;
+        top: -30px;
+        right: 50%;
+        transform: translateX(50%);
+        background: #28a745;
+        color: #fff;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .copy-btn.copied::after {
+        opacity: 1;
+        transform: translateX(50%) translateY(-5px);
+    }
+
+    .guide-btn {
+        display: block;
+        max-width: 350px;
+        margin: 2rem auto;
+        text-align: center;
+        background: #00bfff;
+        color: #fff;
+        padding: 0.9rem 1rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 183, 255, 0.2);
+    }
+
+    .guide-btn:hover {
+        background: #009fd4;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 183, 255, 0.3);
+    }
+
+    .instruction-box {
+        max-width: 550px;
+        margin: -1rem auto 2rem auto;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 1.2rem;
+        border-radius: 10px;
+        font-family: Arial, sans-serif;
+        color: #ccc;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .instruction-box h4 {
+        color: #fff;
+        margin-bottom: 0.8rem;
+    }
+
+    .instruction-box p {
+        line-height: 1.6;
+    }
+
+    .instruction-box a {
+        flex: 1;
+        text-align: center;
+        padding: 0.7rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    .instruction-box a:first-child {
+        background: #25d366;
+        color: white;
+    }
+
+    .instruction-box a:first-child:hover {
+        background: #1ebe5b;
+    }
+
+    .instruction-box a:last-child {
+        background: #229ED9;
+        color: white;
+    }
+
+    .instruction-box a:last-child:hover {
+        background: #1c8ec2;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media(max-width: 500px) {
+        .payment-container {
+            margin: 20px;
+            padding: 1.5rem;
+        }
+
+        .detail-label,
+        .detail-value {
+            font-size: 0.95rem;
+        }
+
+        .copy-btn {
+            padding: 0.4rem 0.6rem;
+        }
+    }
+</style>
+
+<!-- Lead Bank -->
+<!-- <div class="payment-container"> -->
+    <!-- <h2>Lead Bank Payment</h2>
+
+    <div class="payment-detail">
+        <span class="detail-label">Account Name:</span>
+        <span class="detail-value" id="accName1">Jacob Lawrence</span>
+        <button class="copy-btn" onclick="copyText('accName1', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Account Number:</span>
+        <span class="detail-value" id="accNumber1">210092596566</span>
+        <button class="copy-btn" onclick="copyText('accNumber1', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Bank Name:</span>
+        <span class="detail-value" id="bankName1">Lead Bank</span>
+        <button class="copy-btn" onclick="copyText('bankName1', this)"><i class="fas fa-copy"></i></button>
+    </div> -->
+<!-- 
+    <div class="payment-detail">
+        <span class="detail-label">Routing Number:</span>
+        <span class="detail-value" id="routingNumber1">101019644</span>
+        <button class="copy-btn" onclick="copyText('routingNumber1', this)"><i class="fas fa-copy"></i></button>
+    </div>
+</div> -->
+
+<!-- Wells Fargo -->
+<!-- <div class="payment-container">
+    <h2>Wells Fargo Payment</h2>
+
+    <div class="payment-detail">
+        <span class="detail-label">Account Name:</span>
+        <span class="detail-value" id="accName2">Jacob Egop Lawrence</span>
+        <button class="copy-btn" onclick="copyText('accName2', this)"><i class="fas fa-copy"></i></button>
+    </div> -->
+<!-- 
+    <div class="payment-detail">
+        <span class="detail-label">Account Number:</span>
+        <span class="detail-value" id="accNumber2">40630276004901000</span>
+        <button class="copy-btn" onclick="copyText('accNumber2', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Bank Name:</span>
+        <span class="detail-value" id="bankName2">Wells Fargo</span>
+        <button class="copy-btn" onclick="copyText('bankName2', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Routing Number:</span>
+        <span class="detail-value" id="routingNumber2">121000248</span>
+        <button class="copy-btn" onclick="copyText('routingNumber2', this)"><i class="fas fa-copy"></i></button>
+    </div>
+</div> -->
+
+<!-- USDT -->
+<div class="payment-container">
+    <h2>USDT Payment</h2>
+
+    <div class="payment-detail">
+        <span class="detail-label">Crypto:</span>
+        <span class="detail-value" id="cryptoUSDT">USDT (Tether)</span>
+        <button class="copy-btn" onclick="copyText('cryptoUSDT', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Wallet Address:</span>
+        <span class="detail-value" id="walletUSDT">0xdB8445Fe496fB67f1d2a192867782dA3CF1bc1c7</span>
+        <button class="copy-btn" onclick="copyText('walletUSDT', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Blockchain:</span>
+        <span class="detail-value" id="blockchainUSDT">ETH</span>
+        <button class="copy-btn" onclick="copyText('blockchainUSDT', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Memo:</span>
+        <span class="detail-value" id="memoUSDT">Optional123</span>
+        <button class="copy-btn" onclick="copyText('memoUSDT', this)"><i class="fas fa-copy"></i></button>
+    </div>
+</div>
+
+<!-- Bitcoin -->
+<div class="payment-container">
+    <h2>Bitcoin Payment</h2>
+
+    <div class="payment-detail">
+        <span class="detail-label">Crypto:</span>
+        <span class="detail-value" id="cryptoBTC">Bitcoin (BTC)</span>
+        <button class="copy-btn" onclick="copyText('cryptoBTC', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Wallet Address:</span>
+        <span class="detail-value" id="walletBTC">bc1qefuyj37efns3j4f05zpw3t9n0rerl0he0ez2al</span>
+        <button class="copy-btn" onclick="copyText('walletBTC', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Blockchain:</span>
+        <span class="detail-value" id="blockchainBTC">Bitcoin Mainnet</span>
+        <button class="copy-btn" onclick="copyText('blockchainBTC', this)"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="payment-detail">
+        <span class="detail-label">Memo:</span>
+        <span class="detail-value" id="memoBTC">N/A</span>
+        <button class="copy-btn" onclick="copyText('memoBTC', this)"><i class="fas fa-copy"></i></button>
+    </div>
+</div>
+
+<!-- Instructions -->
+<div class="instruction-box">
+    <h4>Payment Instructions:</h4>
+    <p>
+        After completing the payment, kindly send your transaction receipt to our management team on WhatsApp or Telegram for confirmation.
+    </p>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+        <a href="https://wa.me/+17858005634?text=Hello%20Admin,%20I%20have%20made%20my%20payment.%20Please%20find%20my%20receipt%20attached%20for%20confirmation." target="_blank">Contact on WhatsApp</a>
+        <a href="https://t.me/tordi190?text=Hello%20Admin,%20I%20have%20made%20my%20payment.%20Please%20find%20my%20receipt%20attached%20for%20confirmation." target="_blank">Contact on Telegram</a>
+    </div>
+</div>
+
+<a href="{% url 'how_to_pay' %}" class="guide-btn">Complete Guide: How to Make Payment</a>
+
+<a href="{% url 'create_shipment' %}" class="guide-btn">Create A Shipping ID</a>
+
+<div class="instruction-box" style="margin-top: -1rem;">
+    <p>
+        After making payment and confirming it with the management, please click the <strong>“Create A Shipping ID”</strong> button above. 
+        Once created, make sure to <strong>save your Shipping ID</strong> — you’ll need it to track and monitor the delivery of your goods.
+    </p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+<script>
+    function copyText(elementId, btn) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 2000);
+        });
+    }
+</script>
+
+{% endblock %}
