@@ -1,18 +1,100 @@
 {% extends 'base.html' %}
-{% block title %}Products - MyShop{% endblock %}
+
+{% load static %}
 
 {% block content %}
-    <style>
-        body {
-            background: #000;
-            color: white;
-            font-family: Arial;
-        }
-        a {
-            color: #0af;
-        }
-    </style>
-    <h2>Welcome, {{ request.user.username }}</h2>
-    <p>This is your dashboard.</p>
-    <p><a href="{% url 'logout' %}">Logout</a></p>
+<style>
+  .homepage-container {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .homepage-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #00ff9f;
+  }
+
+  .homepage-description {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  .homepage-highlight {
+    font-weight: bold;
+    color: #ff5757;
+  }
+
+  .homepage-images {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 50px 0;
+    flex-wrap: wrap;
+  }
+
+  .homepage-images img {
+    width: 45%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .cta-section {
+    background: #222;
+    margin-top: 60px;
+    padding: 30px 20px;
+    border-radius: 10px;
+  }
+
+  .cta-section h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #00d4ff;
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+    color: #aaa;
+  }
+</style>
+
+<div class="homepage-container">
+  <h1 class="homepage-title">Welcome to Dark Market Vault</h1>
+  <p class="homepage-description">
+    Dive into the underground world of <span class="homepage-highlight">exclusive and high-demand products</span>. At <strong>Dark Market Vault</strong>, we pride ourselves on offering a broad catalog of items tailored for elite needs. Whether you're looking for top-tier <span class="homepage-highlight">digital cards</span>, powerful <span class="homepage-highlight">firearms</span>, potent <span class="homepage-highlight">pharmaceuticals</span>, or rare and specialized gear, we are your ultimate destination.
+    <br><br>
+    We ensure complete discretion, verified listings, and reliable communication with every purchase. Our reputation is built on quality, trust, and consistent delivery of unmatched goods and services across various categories.
+    <br><br>
+    Explore categories such as:
+    <ul style="text-align: left; margin-left: 30%; color: #ff9;">
+      <li>💊 Medical and recreational drugs</li>
+      <li>💳 Premium digital cards (credit, debit, gift)</li>
+      <li>🔫 High-caliber firearms and accessories</li>
+      <li>📦 Discreet packaging and shipping worldwide</li>
+      <li>👤 Anonymous purchase options available</li>
+    </ul>
+  </p>
+
+  <div class="homepage-images">
+    <img src="{% static 'images/sample1.jpg' %}" alt="Featured Product 1">
+    <img src="{% static 'images/sample2.jpg' %}" alt="Featured Product 2">
+  </div>
+
+  <div class="cta-section">
+    <h3>Start Shopping Securely</h3>
+    <p>
+      Browse our collection, add your favorites to cart, and check out with peace of mind. We deliver what others only promise.
+      <br><br>
+      <a href="{% url 'product_list' %}" style="color: #00ff88; font-weight: bold;">→ View All Products</a>
+    </p>
+  </div>
+</div>
 {% endblock %}
