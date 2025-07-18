@@ -1,9 +1,56 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
 <style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-fullscreen {
+    background: url("{% static 'image/img1.jpg' %}") no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #00ff9f;
+  }
+
+  .hero-text p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #ddd;
+  }
+
   .homepage-container {
     background-color: #111;
     color: #fff;
@@ -64,10 +111,38 @@
     font-size: 1.1rem;
     color: #aaa;
   }
+
+  @media (max-width: 768px) {
+    .hero-text h1 {
+      font-size: 2rem;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+    }
+
+    .homepage-images img {
+      width: 90%;
+    }
+
+    ul {
+      margin-left: 0;
+      text-align: left;
+    }
+  }
 </style>
 
+<!-- Fullscreen Hero Image -->
+<div class="hero-fullscreen">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <h1>Welcome to Monsterpoint Market Vault</h1>
+    <p>Explore premium underground products with guaranteed security and anonymity.</p>
+  </div>
+</div>
+
+<!-- Main Home Content -->
 <div class="homepage-container">
-  <h1 class="homepage-title">Welcome to Monsterpoint Market Vault</h1>
   <p class="homepage-description">
     Dive into the underground world of <span class="homepage-highlight">exclusive and high-demand products</span>. At <strong>Monsterpoint Market Vault</strong>, we pride ourselves on offering a broad catalog of items tailored for elite needs. Whether you're looking for top-tier <span class="homepage-highlight">digital cards</span>, powerful <span class="homepage-highlight">firearms</span>, potent <span class="homepage-highlight">pharmaceuticals</span>, or rare and specialized gear, we are your ultimate destination.
     <br><br>
